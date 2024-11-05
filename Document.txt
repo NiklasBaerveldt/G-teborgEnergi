@@ -1,0 +1,17 @@
+The project consists of a datagenerator and a flinkquery.
+The datagenerator uses the class House (which models a house with a fixed energyusage set when creating the object) to generate datavalues.
+Each house object has its own randomly generated base energy usage value, that it gets at its creation. It has a method getHourlyReading
+that returns a random value based on its base energy usage value as well as the time of day. The datagenerator generates the value to a csv file
+
+The flinkquery is a datastream where the source is the generated values, and the sink writes the result for each house.
+The datastream goes through the following operations:
+1 values are parsed from csv format to a 3Tuple.
+2 The data gets timestamped.
+3 A tumbling averaging window, keyed on HouseId, with the accumulator on the time and where the energy value is averaged, gets applied.
+4 The data is pattern matched on consecutive growing averages
+5 Data is put into the sink which separates the data based on houseId and puts the data corresponding to each house in its own file.
+
+
+The datagenerator was relatively straightforward to make while the flinkquery was considerably harder since none of us
+had any experience with streamprocessing prior to this. The part of the flinkquery that was most challenging was the
+tumbling window and the pattern matching. It was also sometimes difficult to get the maven dependencies to work properly.
