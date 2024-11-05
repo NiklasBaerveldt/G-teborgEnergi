@@ -15,3 +15,6 @@ The datastream goes through the following operations:
 The datagenerator was relatively straightforward to make while the flinkquery was considerably harder since none of us
 had any experience with streamprocessing prior to this. The part of the flinkquery that was most challenging was the
 tumbling window and the pattern matching. It was also sometimes difficult to get the maven dependencies to work properly.
+
+All components of the project can be run by running Main.java, this will regenerate the generated data and the averages will also be recalculated, but note that the old values will be deleted. 
+The Flink query can also be run by itself, it takes the parallelismdegree as a parameter.
